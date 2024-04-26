@@ -12,10 +12,13 @@ head(arrests)
 
 # Retrieve the states map data and merge with crime data
 states_map <- map_data("state")
+states_map
 arrests_map <- left_join(states_map, arrests, by = "region")
+head(arrests_map)
+tail(arrests_map)
 
 # Create the map
-ggplot(arrests_map, aes(long, lat, group = group))+
-  geom_polygon(aes(fill = Assault), color = "white")+
+ggplot(arrests_map, aes(long, lat, group = group)) +
+  geom_polygon(aes(fill = Assault), color = "white") +
   scale_fill_viridis_c(option = "C")
 
