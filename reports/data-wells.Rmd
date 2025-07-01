@@ -22,7 +22,7 @@ here::i_am("data-wells.Rmd")
 ```
 
 ## Overview
-
+ 
 ```{r}
 # fatal database
 df <- read.csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/refs/heads/master/v2/fatal-police-shootings-data.csv")
