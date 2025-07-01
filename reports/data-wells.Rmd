@@ -82,27 +82,27 @@ str(df2024)
 df1893$Date <- as.Date(df1893$Date, format="%b. %d, %Y")
 df1894$Date <- as.Date(df1894$Date, format="%b. %d, %Y")
 
-# If some months are not abbreviated with a dot, try this alternative:
+# when months are not abbreviated with a dot, use this alternative:
 # df1893$Date <- as.Date(df1893$Date, format="%b %d, %Y")
 # df1894$Date <- as.Date(df1894$Date, format="%b %d, %Y")
 
-# --- Standardize column names for 1893 and 1894 ---
+# --- standardize column names for 1893 and 1894 ---
 names(df1893) <- c("name", "location", "date", "alleged_crime", "latitude", "longitude")
 names(df1894) <- c("name", "location", "date", "alleged_crime", "latitude", "longitude")
 
-# --- Check and fix types in 2023 and 2024 ---
-# Already in good shape, but you can factorize categorical variables if needed:
+# --- check and fix types in 2023 and 2024 ---
+# factorize categorical variables if needed:
 factor_cols <- c("state.name", "state.abb", "threat_type", "flee_status", "armed_with",
                  "city", "county", "state", "gender", "race", "race_source", "location_precision")
 
 df2023[factor_cols] <- lapply(df2023[factor_cols], as.factor)
 df2024[factor_cols] <- lapply(df2024[factor_cols], as.factor)
 
-# --- Optional: Add a 'year' column to 1893 and 1894 for consistency ---
+# --- add a 'year' column to 1893 and 1894 for consistency ---
 df1893$year <- 1893
 df1894$year <- 1894
 
-# --- Optional: Add missing columns to 1893/1894 with NA values for merging ---
+# --- add missing columns to 1893/1894 with NA values for merging ---
 missing_cols <- setdiff(names(df2023), names(df1893))
 for(col in missing_cols) df1893[[col]] <- NA
 df1893 <- df1893[, names(df2023)] # Reorder columns
@@ -134,10 +134,6 @@ write.csv(df1894, "../data/df1894.csv", row.names = FALSE)
 write.csv(df1894b, "../data/df1894b.csv", row.names = FALSE)
 write.csv(df2023, "../data/df2023.csv", row.names = FALSE)
 write.csv(df2024, "../data/df2024.csv", row.names = FALSE)
-
-# function to write data sets
-
-write(x) = function(write.csv(x))
 ```
 
 
