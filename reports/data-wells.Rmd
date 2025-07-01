@@ -1,0 +1,143 @@
+---
+title: "*Data Wells* in the Campaigns on State Violence"
+author: "Quantitative Histories Workshop"
+output:   
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    theme: flatly
+editor_options:
+  markdown:
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(here)
+here::i_am("data-wells.Rmd")
+```
+
+## Overview
+
+```{r}
+# fatal database
+df <- read.csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/refs/heads/master/v2/fatal-police-shootings-data.csv")
+str(df)
+# fix vars
+# change vars to more appropriate formats
+df$date <- as.Date(df$date) # check/change to date format
+df$age <- as.numeric(df$age)
+df$was_mental_illness_related <- as.logical(df$was_mental_illness_related)
+df$body_camera <- as.logical(df$body_camera)
+str(df)
+
+# view a summary of the data
+summary(df)
+
+# create a two-column transfer df to match state to abb
+transfer <- tibble(state = state.name) %>% 
+  tibble(abb = state.abb) %>% 
+  bind_rows(tibble(state = "District Of Columbia", abb = "DC")) # add DC
+transfer
+tail(transfer)
+
+# add a state name variable to the fatal df
+df$state.name <- state.name[match(df$state, transfer$abb)]
+df %>% 
+  mutate(state.abb = state) %>% 
+  relocate(id, date, state.name, state.abb) -> df
+
+# create a year column
+# format to 20YY
+df.year <- format(df$date, format="20%y") 
+df$year <- df.year # add column to df
+df$year <- as.numeric(df$year)
+df %>% relocate(id, date, year, state.name, state.abb) -> df
+tail(df)
+```
+
+```{r}
+df1893 <- read.csv("https://raw.githubusercontent.com/quant-shop/IdaBWellsProject/master/RedRecord/redrecord1893.csv")
+
+df1894 <- read.csv("https://raw.githubusercontent.com/quant-shop/IdaBWellsProject/master/RedRecord/redrecord1894.csv")
+
+df2023 <- df %>% 
+  filter(year == 2023)
+
+df2024 <- df %>% 
+  filter(year == 2024)
+```
+
+```{r}
+str(df2024)
+```
+
+```{r}
+# standardize data frames
+# --- Fix date columns for 1893 and 1894 ---
+df1893$Date <- as.Date(df1893$Date, format="%b. %d, %Y")
+df1894$Date <- as.Date(df1894$Date, format="%b. %d, %Y")
+
+# If some months are not abbreviated with a dot, try this alternative:
+# df1893$Date <- as.Date(df1893$Date, format="%b %d, %Y")
+# df1894$Date <- as.Date(df1894$Date, format="%b %d, %Y")
+
+# --- Standardize column names for 1893 and 1894 ---
+names(df1893) <- c("name", "location", "date", "alleged_crime", "latitude", "longitude")
+names(df1894) <- c("name", "location", "date", "alleged_crime", "latitude", "longitude")
+
+# --- Check and fix types in 2023 and 2024 ---
+# Already in good shape, but you can factorize categorical variables if needed:
+factor_cols <- c("state.name", "state.abb", "threat_type", "flee_status", "armed_with",
+                 "city", "county", "state", "gender", "race", "race_source", "location_precision")
+
+df2023[factor_cols] <- lapply(df2023[factor_cols], as.factor)
+df2024[factor_cols] <- lapply(df2024[factor_cols], as.factor)
+
+# --- Optional: Add a 'year' column to 1893 and 1894 for consistency ---
+df1893$year <- 1893
+df1894$year <- 1894
+
+# --- Optional: Add missing columns to 1893/1894 with NA values for merging ---
+missing_cols <- setdiff(names(df2023), names(df1893))
+for(col in missing_cols) df1893[[col]] <- NA
+df1893 <- df1893[, names(df2023)] # Reorder columns
+
+missing_cols <- setdiff(names(df2023), names(df1894))
+for(col in missing_cols) df1894[[col]] <- NA
+df1894 <- df1894[, names(df2023)]
+
+# --- Combine all data frames (if desired) ---
+all_years <- rbind(df1893, df1894, df2023, df2024)
+```
+
+```{r}
+library(readr)
+df1893b <- read_csv("../data/Red Record Lynching Record - 1893.csv")
+
+df1892 <- read_csv("../data/Red Record Lynching Record - 1893.csv")
+
+df1894b <- read_csv("../data/Red Record Lynching Record - 1893.csv")
+
+```
+
+
+```{r, eval=F}
+write.csv(df1892, "../data/df1892.csv", row.names = FALSE)
+write.csv(df1893, "../data/df1893.csv", row.names = FALSE)
+write.csv(df1893b, "../data/df1893b.csv", row.names = FALSE)
+write.csv(df1894, "../data/df1894.csv", row.names = FALSE)
+write.csv(df1894b, "../data/df1894b.csv", row.names = FALSE)
+write.csv(df2023, "../data/df2023.csv", row.names = FALSE)
+write.csv(df2024, "../data/df2024.csv", row.names = FALSE)
+
+# function to write data sets
+
+write(x) = function(write.csv(x))
+```
+
+
