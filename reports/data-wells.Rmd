@@ -1,7 +1,8 @@
 ---
 title: "Data Wells: Technical file"
 author: 
-  - "Nathan Alexander, Kade Davis"
+  - "Nathan Alexander^[Howard University]"
+  - "Kade Davis^[Morehouse College]"
   - "Quantitative Histories Workshop"
 output:   
   html_document:
@@ -27,7 +28,7 @@ here::i_am("data-wells.Rmd")
 
 # Overview
 
-We provide here the technical code and methods to accompany our analysis of data on lynching and policing. We examine some of the historical and contemporary contexts of state violence and social control using a game theoretic analysis regarding the state's means of production towards social control -- we then situate this idea using Goodwin's (1992) analysis around *professional visions* and we broadly frame our analysis within the research in Black and African American studies. We also consider some of the structures, assumptions, and quantitative models related to the analysis of the historical data. We make use of original source data from Ida B. Wells-Barnett's *The Red Record* and the Washington Post *Fatal Force* database.
+We provide here the technical code and methods to accompany our analysis of data on lynching and policing. We examine some of the historical and contemporary contexts of state violence and social control using a media frames analysis regarding the state's means of production towards social control -- we then situate this idea using Goodwin's (1992) analysis around *professional visions* and we broadly frame our analysis within the research in Black and African American studies. We also consider some of the structures, assumptions, and quantitative models related to the analysis of the historical data. We make use of original source data from Ida B. Wells-Barnett's *The Red Record* and the Washington Post *Fatal Force* database.
 
 # Data
 
@@ -43,6 +44,8 @@ str(fatal)
 # fix vars
 # change vars to more appropriate formats
 fatal$date <- as.Date(fatal$date) # check/change to date format
+
+fatal$year <- as.numeric(format(fatal$date, "%Y"))
 
 fatal$age <- as.numeric(fatal$age)
 
@@ -188,7 +191,7 @@ all_years <- rbind(df1893, df1894, df2023, df2024)
 ```
 
 
-```{r, eval=F}
+```{r, include=F, eval=F}
 write.csv(df1892, "../data/df1892.csv", row.names = FALSE)
 write.csv(df1893, "../data/df1893.csv", row.names = FALSE)
 write.csv(df1893b, "../data/df1893b.csv", row.names = FALSE)
@@ -197,5 +200,158 @@ write.csv(df1894b, "../data/df1894b.csv", row.names = FALSE)
 write.csv(df2023, "../data/df2023.csv", row.names = FALSE)
 write.csv(df2024, "../data/df2024.csv", row.names = FALSE)
 ```
+
+# Maps
+
+```{r}
+library(ggplot2)
+library(maps)
+#install.packages("maps")
+
+# get map data for US states
+states_map <- map_data("state")
+```
+
+## Fatal Force
+
+```{r}
+# lowercase to match maps of state names
+fatal <- fatal %>%
+  mutate(region = tolower(state))  # or whatever your state column is called
+```
+
+```{r}
+# states to higlight from wells 1892 data - top five states
+states1892 <- c(
+  "louisiana", 
+  "tennessee", 
+  "arkansas",
+  "alabama",
+  "georgia",
+  "mississippi",
+  "texas",
+  "florida",
+  "kentucky",
+  "wyoming"
+  )
+states_map_1892 <- states_map %>%
+  mutate(highlight = ifelse(region %in% states1892, "highlight", "normal"))
+```
+
+Add dots for each fatal incident.
+
+```{r}
+ggplot() +
+  geom_polygon(
+    data = states_map_1892,
+    aes(x = long, y = lat, group = group, fill = highlight),
+    color = "white", size = 0.2
+  ) +
+  scale_fill_manual(values = c("highlight" = "red", "normal" = "grey80")) +
+  geom_point(
+    data = fatal,
+    aes(x = longitude, y = latitude),
+    color = "blue", alpha = 0.6, size = 2
+  ) +
+  coord_fixed(1.3) +
+  theme_void() +
+  labs(title = "US Map with Highlighted States and Incident Dots")
+```
+
+### Black men in 2022
+
+```{r}
+fatal_black_men_2022 <- fatal %>%
+  filter(
+    race_category == "Black" | race == "B",
+    gender == "male" | gender == "M", # Adjust based on your gender coding
+    year == 2022
+  )
+
+fatal_black_men_2022 <- fatal_black_men_2022 %>%
+  mutate(state_lower = tolower(state)) 
+```
+
+```{r}
+ggplot() +
+  geom_polygon(
+    data = states_map,
+    aes(x = long, y = lat, group = group),
+    fill = "gray90",
+    color = "white"
+  ) +
+  geom_point(
+    data = fatal_black_men_2022,
+    aes(x = longitude, y = latitude),
+    color = "black",
+    alpha = 0.7,
+    size = 2
+  ) +
+  coord_fixed(1.3) +
+  theme_void() +
+  labs(
+    title = "Fatal Police Shootings of Black Men in the US, 2022",
+    caption = "Data source: Washington Post Fatal Force Database"
+  )
+
+```
+
+```{r}
+states_map_1892 <- states_map_1892 %>%
+  mutate(
+    highlight = ifelse(region %in% states1892, "highlight", "normal")
+  )
+```
+
+## Integreted maps
+
+Here, we integrate the fatal force 2022 data for Black men with the 1892 records.
+
+```{r}
+ggplot() +
+  geom_polygon(
+    data = states_map_1892,
+    aes(x = long, y = lat, group = group, fill = highlight),
+    color = "white", size = 0.2
+  ) +
+  scale_fill_manual(
+    values = c("highlight" = "red", "normal" = "gray80"),
+    guide = "none"
+  ) +
+  coord_fixed(1.3) +
+  theme_void() +
+  labs(
+    title = "Top 10 States, Lynching in 1892"
+  )
+
+```
+
+
+
+```{r}
+ggplot() +
+  geom_polygon(
+    data = states_map_1892,
+    aes(x = long, y = lat, group = group, fill = highlight),
+    color = "white", size = 0.2
+  ) +
+  scale_fill_manual(
+    values = c("highlight" = "red", "normal" = "gray80"),
+    guide = "none"
+  ) +
+  geom_point(
+    data = fatal_black_men_2022,
+    aes(x = longitude, y = latitude),
+    color = "black", alpha = 0.7, size = 2
+  ) +
+  coord_fixed(1.3) +
+  theme_void() +
+  labs(
+    title = "Top 10 States - Lynching, 1892 (red); Black Male Fatal Shootings, 2022 (dots)"
+  )
+
+
+```
+
 
 
