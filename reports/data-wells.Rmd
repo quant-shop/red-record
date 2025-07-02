@@ -1,12 +1,15 @@
 ---
-title: "*Data Wells* in the Campaigns on State Violence (Draft)"
-author: "Quantitative Histories Workshop"
+title: "Data Wells: Technical file"
+author: 
+  - "Nathan Alexander, Kade Davis"
+  - "Quantitative Histories Workshop"
 output:   
   html_document:
     toc: true
     toc_depth: 2
+    toc_float: true  # Enable floating TOC in the sidebar
     number_sections: true
-    theme: flatly
+    theme: cerulean
 editor_options:
   markdown:
     wrap: sentence
@@ -17,26 +20,80 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(dplyr)
 library(tidyr)
+library(readr)
 library(here)
 here::i_am("data-wells.Rmd")
 ```
 
-## Overview
- 
+# Overview
+
+We provide here the technical code and methods to accompany our analysis of data on lynching and policing. We examine some of the historical and contemporary contexts of state violence and social control using a game theoretic analysis regarding the state's means of production towards social control -- we then situate this idea using Goodwin's (1992) analysis around *professional visions* and we broadly frame our analysis within the research in Black and African American studies. We also consider some of the structures, assumptions, and quantitative models related to the analysis of the historical data. We make use of original source data from Ida B. Wells-Barnett's *The Red Record* and the Washington Post *Fatal Force* database.
+
+# Data
+
+## The Washington Post Fatal Force database
+
 ```{r}
 # fatal database
-df <- read.csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/refs/heads/master/v2/fatal-police-shootings-data.csv")
-str(df)
+fatal <- read.csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/refs/heads/master/v2/fatal-police-shootings-data.csv")
+str(fatal)
+```
+
+```{r}
 # fix vars
 # change vars to more appropriate formats
-df$date <- as.Date(df$date) # check/change to date format
-df$age <- as.numeric(df$age)
-df$was_mental_illness_related <- as.logical(df$was_mental_illness_related)
-df$body_camera <- as.logical(df$body_camera)
-str(df)
+fatal$date <- as.Date(fatal$date) # check/change to date format
+
+fatal$age <- as.numeric(fatal$age)
+
+fatal$gender[fatal$gender == ""] <- NA
+fatal$gender <- as.factor(fatal$gender)
+fatal$gender <- droplevels(fatal$gender)
+
+fatal <- fatal %>%
+  mutate(
+    race_category = case_when(
+      race == ""       ~ NA_character_,
+      race == "A"      ~ "Asian",
+      race == "B"      ~ "Black",
+      race == "H"      ~ "Hispanic",
+      race == "N"      ~ "Native American",
+      race == "O"      ~ "Other",
+      race == "W"      ~ "White",
+      race == "B;H"    ~ "Black, Hispanic",
+      race == "N;H"    ~ "Native, Hispanic",
+      race == "W;A"    ~ "White, Asian",
+      race == "W;B"    ~ "White, Black",
+      race == "W;B;N"  ~ "White, Black, Native",
+      race == "W;H"    ~ "White, Hispanic",
+      TRUE             ~ "Other"
+    )
+  )
+fatal$race_category <- as.factor(fatal$race_category)
+
+library(dplyr)
+
+fatal <- fatal %>%
+  mutate(
+    black = case_when(
+      race == "B" ~ "Black",
+      grepl(";", race) & grepl("B", race) ~ "Black Other",  # Multiracial with Black
+      TRUE ~ "Non-Black"
+    )
+  )
+
+# convert to factor for ordered levels
+fatal$black <- factor(fatal$black, 
+                                 levels = c("Black", "Black Other", "Non-Black"))
+
+fatal$was_mental_illness_related <- as.logical(fatal$was_mental_illness_related)
+
+fatal$body_camera <- as.logical(fatal$body_camera)
+
+str(fatal)
 
 # view a summary of the data
-summary(df)
+summary(fatal)
 
 # create a two-column transfer df to match state to abb
 transfer <- tibble(state = state.name) %>% 
@@ -46,35 +103,51 @@ transfer
 tail(transfer)
 
 # add a state name variable to the fatal df
-df$state.name <- state.name[match(df$state, transfer$abb)]
-df %>% 
+fatal$state.name <- state.name[match(fatal$state, transfer$abb)]
+fatal %>% 
   mutate(state.abb = state) %>% 
-  relocate(id, date, state.name, state.abb) -> df
+  relocate(id, date, state.name, state.abb) -> fatal
 
 # create a year column
 # format to 20YY
-df.year <- format(df$date, format="20%y") 
-df$year <- df.year # add column to df
-df$year <- as.numeric(df$year)
-df %>% relocate(id, date, year, state.name, state.abb) -> df
-tail(df)
+fatal.year <- format(fatal$date, format="20%y") 
+fatal$year <- fatal.year # add column to df
+fatal$year <- as.numeric(fatal$year)
+fatal %>% relocate(id, date, year, state.name, state.abb) -> fatal
+tail(fatal)
 ```
 
+Subsetting data for 2023 and 2024.
+
 ```{r}
-df1893 <- read.csv("https://raw.githubusercontent.com/quant-shop/IdaBWellsProject/master/RedRecord/redrecord1893.csv")
-
-df1894 <- read.csv("https://raw.githubusercontent.com/quant-shop/IdaBWellsProject/master/RedRecord/redrecord1894.csv")
-
-df2023 <- df %>% 
+df2023 <- fatal %>% 
   filter(year == 2023)
 
-df2024 <- df %>% 
+df2024 <- fatal %>% 
   filter(year == 2024)
 ```
 
+## Ida B. Wells-Barnett's The Red Record data
+
+We then load data from The Red Record. Data are gathered from two sources. We conduct a set of cross references to confirm the final selection of case studies for the analysis.
+
 ```{r}
-str(df2024)
+# data from forked repo on IdaBWellsProject
+df1893 <- read.csv("https://raw.githubusercontent.com/quant-shop/IdaBWellsProject/master/RedRecord/redrecord1893.csv")
+
+df1894 <- read.csv("https://raw.githubusercontent.com/quant-shop/IdaBWellsProject/master/RedRecord/redrecord1894.csv")
 ```
+
+```{r}
+# records from quant shop entry
+df1892 <- read_csv("../data/Red Record Lynching Record - 1892.csv")
+
+df1893b <- read_csv("../data/Red Record Lynching Record - 1893.csv")
+
+df1894b <- read_csv("../data/Red Record Lynching Record - 1893.csv")
+```
+
+## Standardizing data frames
 
 ```{r}
 # standardize data frames
@@ -111,18 +184,7 @@ missing_cols <- setdiff(names(df2023), names(df1894))
 for(col in missing_cols) df1894[[col]] <- NA
 df1894 <- df1894[, names(df2023)]
 
-# --- Combine all data frames (if desired) ---
 all_years <- rbind(df1893, df1894, df2023, df2024)
-```
-
-```{r}
-library(readr)
-df1893b <- read_csv("../data/Red Record Lynching Record - 1893.csv")
-
-df1892 <- read_csv("../data/Red Record Lynching Record - 1893.csv")
-
-df1894b <- read_csv("../data/Red Record Lynching Record - 1893.csv")
-
 ```
 
 
