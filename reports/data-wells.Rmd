@@ -37,7 +37,7 @@ We provide here the technical code and methods to accompany our analysis of data
 ```{r}
 # fatal database
 fatal <- read.csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/refs/heads/master/v2/fatal-police-shootings-data.csv")
-str(fatal)
+str(fatal) 
 ```
 
 ```{r}
