@@ -1970,6 +1970,21 @@ fatal_black_men_2022 &lt;- fatal_black_men_2022 %&gt;%
 <div id="tables" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Tables</h1>
 <p>Tables without context.</p>
+<p>Threat type</p>
+<pre class="r"><code># Frequency table
+table(fatal$threat_type)</code></pre>
+<pre><code>## 
+##                  accident       attack         flee         move        point 
+##           68           55         1490          192          599         1890 
+##        shoot       threat undetermined 
+##         2924         2674          538</code></pre>
+<pre class="r"><code># Proportion table (relative frequencies)
+prop.table(table(fatal$threat_type))</code></pre>
+<pre><code>## 
+##                  accident       attack         flee         move        point 
+##  0.006519655  0.005273250  0.142857143  0.018408437  0.057430489  0.181208054 
+##        shoot       threat undetermined 
+##  0.280345158  0.256375839  0.051581975</code></pre>
 <p>Flee status.</p>
 <pre class="r"><code># Frequency table
 table(fatal$flee_status)</code></pre>

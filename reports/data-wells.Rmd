@@ -358,6 +358,17 @@ ggplot() +
 
 Tables without context.
 
+Threat type
+
+```{r}
+# Frequency table
+table(fatal$threat_type)
+
+# Proportion table (relative frequencies)
+prop.table(table(fatal$threat_type))
+```
+
+
 Flee status.
 
 ```{r}
