@@ -22,6 +22,7 @@ library(tidyverse)
 library(dplyr)
 library(tidyr)
 library(readr)
+library(knitr)
 library(here)
 here::i_am("data-wells.Rmd")
 ```
@@ -352,6 +353,92 @@ ggplot() +
 
 
 ```
+
+## Tables
+
+Tables without context.
+
+Flee status.
+
+```{r}
+# Frequency table
+table(fatal$flee_status)
+
+# Proportion table (relative frequencies)
+prop.table(table(fatal$flee_status))
+```
+Armed with.
+
+```{r}
+# Frequency table
+table(fatal$armed_with)
+
+# Proportion table (relative frequencies)
+prop.table(table(fatal$armed_with))
+```
+
+```{r}
+#kable table
+# Create a frequency table
+armed_tbl <- as.data.frame(table(fatal$armed_with))
+colnames(armed_tbl) <- c("armed_with", "count")
+
+# Add classification
+armed_tbl <- armed_tbl %>%
+  mutate(category_type = case_when(
+    grepl(";", armed_with) ~ "Combined",
+    armed_with %in% c("unknown", "undetermined", "not_reported", "NA", "") ~ "Missing/Ambiguous",
+    TRUE ~ "Clear"
+  ))
+
+# Add % column (optional)
+armed_tbl <- armed_tbl %>%
+  mutate(proportion = round(count / sum(count), 4))
+
+# Sort by count descending
+armed_tbl <- armed_tbl %>%
+  arrange(desc(count))
+
+# Print as kable
+kable(armed_tbl, caption = "Summary of `armed_with` Categories in `fatal` Dataset")
+
+```
+
+
+
+Additional context.
+
+```{r}
+
+# define race categories to *keep* (single, mutually exclusive)
+keep_race <- c("B", "W", "H")
+
+# define armed statuses to keep 
+keep_armed <- c("gun", "unarmed", "knife") # Add others as appropriate; avoid "multiple", "unknown"
+
+fatal_single <- fatal %>%
+  filter(race %in% keep_race, armed_with %in% keep_armed)
+
+# Flee Status x Race
+table(fatal_single$flee_status, fatal_single$race)
+# Armed With x Race
+table(fatal_single$armed_with, fatal_single$race)
+# Flee Status x Armed With x Race
+ftable(fatal_single$flee_status, fatal_single$armed_with, fatal_single$race)
+
+
+race_labels <- c("B" = "Black", "W" = "White", "H" = "Hispanic")
+fatal$race <- recode(fatal$race, !!!race_labels)
+
+```
+
+A better example.
+
+```{r}
+# we can also use the census dat to make sense of the proportion of the population for a given county
+
+```
+
 
 
 
