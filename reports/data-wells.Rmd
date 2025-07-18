@@ -354,7 +354,7 @@ ggplot() +
 
 ```
 
-## Tables
+# Tables
 
 Tables without context.
 
