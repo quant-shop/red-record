@@ -1,151 +1,27 @@
-"Accusation","State","Name","...4","1893","...6"
-"ARSON","Ala.","Paul Hill",NA,"Accusation","Count"
-NA,"Ala.","Paul Archer",NA,"Rape","39"
-NA,"Ala.","William Archer",NA,"attempted rape","8"
-NA,"Ala.","Emma Fair",NA,"alleged rape","4"
-"SUSPECTED ROBBERY","Miss.","unknown negro",NA,"suspicion of rape","1"
-"ASSAULT","Ga.","Calvin Thoma",NA,"murder","44"
-"ATTEMPTED ASSAULT","La.","Tillman Green",NA,"alleged murder","6"
-"INCENDIARISM","Fla.","Patrick Wells",NA,"alleged complicity in murder","4"
-NA,"Miss.","Frank Harrell",NA,"murderous assault","1"
-NA,"Miss.","William Filder",NA,"attempted murder","1"
-"ATTEMPTED RAPE","Mo.","Richard Mays",NA,"attempted robbery","4"
-NA,"Ga.","Dug Hazleton",NA,"arson","4"
-NA,"Ky.","Judge McNeil",NA,"incendiarism","3"
-NA,"Miss.","Frank Smith",NA,"alleged stock poisoning","1"
-NA,"Mo.","William Jackson",NA,"poisoning wells","2"
-NA,"Ala.","Riley Gulley",NA,"alleged poisoning wells","5"
-NA,"Ala.","John Davis",NA,"burglary","1"
-NA,"S.C.","Robert Kennedy",NA,"wife beating","1"
-"BURGLARY","Miss.","Richard Forman",NA,"self-defense","1"
-"WIFE BEATING","La.","David Jackson",NA,"suspected robbery","1"
-"ATTEMPTED MURDER","Va.","Thomas Smith",NA,"assault and battery","1"
-"ATTEMPTED ROBBERY","Ala.","four unknown negroes",NA,"insulting whites","2"
-"RACE PREJUDICE","Miss.","Thomas Carr",NA,"malpractice","1"
-NA,"Texas","William Butler",NA,"alleged barn burning","4"
-NA,"Miss.","Charles Tart",NA,"stealing","2"
-NA,"Ark.","Robert Greenwood",NA,"unknown offense","4"
-NA,"Ill.","Allen Butler",NA,"no offense","1"
-"THIEVES","La.","two unknown negroes",NA,"race prejudice","4"
-"ALLEGED BARN BURNING","Va.","Edward Wagner",NA,"total","159"
-NA,"Va.","William Wagner",NA,"state","count"
-NA,"Va.","Samuel Motlow",NA,"Alabama","25"
-NA,"Va.","Eliza Motlow",NA,"Florida","7"
-"ALLEGED MURDER","La.","Robert Landry",NA,"Arkansas","7"
-NA,"La.","Chicken George",NA,"Georgia","24"
-NA,"La.","Richard Davis",NA,"Indian Territory","1"
-NA,"Ala.","Benjamin Menter",NA,"Illinois","3"
-NA,"Ala.","Robert Wilkins",NA,"Kansas","2"
-NA,"Ala.","Joseph Gevhens",NA,"Kentucky","8"
-"ALLEGED COMPLICITY IN MURDER","La.","Valsin Julian",NA,"Louisiana","18"
-NA,"La.","Basil Julian",NA,"Mississippi","17"
-NA,"La.","Paul Julian",NA,"Missouri","3"
-NA,"La.","John Willis",NA,"New York","1"
-"MURDER","Ga.","Samuel Thorp",NA,"South Carolina","15"
-NA,"Ga.","George S. Riechen",NA,"Tennessee","10"
-NA,"I.T.","Joseph Bird",NA,"Texas","8"
-NA,"Ga.","James Lamar",NA,"Virginia","10"
-NA,"Texas","Henry Miller",NA,NA,NA
-NA,"S.C.","Ada Hiers",NA,NA,NA
-NA,"Texas","Alexander Brown",NA,NA,NA
-NA,"Ill","W.G. Jamison",NA,NA,NA
-NA,"S.C.","John Ferguson",NA,NA,NA
-NA,"S.C.","Oscar Johnston",NA,NA,NA
-NA,"S.C.","Henry Ewing",NA,NA,NA
-NA,"Ark.","William Smith",NA,NA,NA
-NA,"Ala.","Staples Green,",NA,NA,NA
-NA,"Ga.","Hiram Jacobs",NA,NA,NA
-NA,"Ga.","Lucien Mannet",NA,NA,NA
-NA,"Ga.","Hire Bevington",NA,NA,NA
-NA,"Ga.","Weldon Gordon",NA,NA,NA
-NA,"Ga.","Parse Strickland",NA,NA,NA
-NA,"Ga.","William Dalton",NA,NA,NA
-NA,"Va.","M.B. Taylor",NA,NA,NA
-NA,"Ga.","Isaac Williams",NA,NA,NA
-NA,"Ark.","Miller Davis",NA,NA,NA
-NA,"N.Y.","John Johnston",NA,NA,NA
-NA,"S.C.","Calvin Stewart",NA,NA,NA
-NA,"La.","Henry Coleman",NA,NA,NA
-NA,"Ga.","William Richards",NA,NA,NA
-NA,"Ga.","James Dickson",NA,NA,NA
-NA,"Ga.","Edward Jenkins",NA,NA,NA
-NA,"Fla.","Henry Boggs",NA,NA,NA
-NA,"Ala.","two unknown negroes",NA,NA,NA
-NA,"Miss.","Henry Fleming",NA,NA,NA
-NA,"Ala.","unknown negro",NA,NA,NA
-NA,"La.","Meredith Lewis",NA,NA,NA
-NA,"Tenn.","Edward Bill",NA,NA,NA
-NA,"Tenn.","Henry Reynolds",NA,NA,NA
-NA,"Ark.","unknown negro",NA,NA,NA
-NA,"Fla.","unknown negro",NA,NA,NA
-NA,"Ky","Charles Walton",NA,NA,NA
-NA,"Tenn.","Charles Tait",NA,NA,NA
-NA,"Ky.","Leonard Taylor",NA,NA,NA
-NA,"Miss.","Benjamin Jackson",NA,NA,NA
-NA,"Tenn.","John Williams",NA,NA,NA
-NA,"Fla.","three unknown negroes",NA,NA,NA
-NA,"Ark.","D.T. Nelson",NA,NA,NA
-NA,"Ga.","Newton Jones",NA,NA,NA
-NA,"Ga.","Lucius Holt",NA,NA,NA
-"SELF-DEFENSE","Ky.","unknown negro",NA,NA,NA
-"POISONING WELLS","La.","two unknown negroes",NA,NA,NA
-"ALLEGED WELL POISONING","Miss.","Benjamin Jackson",NA,NA,NA
-NA,"Miss.","Mahala Jackson",NA,NA,NA
-NA,"Miss.","Louisa Carter",NA,NA,NA
-NA,"Miss.","W.A. Haley",NA,NA,NA
-NA,"Miss.","Rufus Bigley",NA,NA,NA
-"INSULTING WHITES","Mo.","John Hughes",NA,NA,NA
-NA,"S.C.","Isaac Lincoln",NA,NA,NA
-"MURDEROUS ASSAULT","Kan.","Daniel Adams",NA,NA,NA
-"NO OFFENSE","Tenn.","Charles Martin",NA,NA,NA
-NA,"Miss.","William Steen",NA,NA,NA
-NA,"Tex.","unknown negro",NA,NA,NA
-NA,"Tex.","unknown negro",NA,NA,NA
-NA,"Ala.","Mack Segars",NA,NA,NA
-"ALLEGED RAPE","Ky.","Charles T. Miller",NA,NA,NA
-NA,"Ga.","Daniel Lewis",NA,NA,NA
-NA,"Ga.","James Taylor",NA,NA,NA
-NA,"Ga.","John Chambers",NA,NA,NA
-"ALLEGED STOCK POISONING","Ky.","Henry G. Givens",NA,NA,NA
-"SUSPECTED MURDER","Mississippi.","Sloan Allen",NA,NA,NA
-"SUSPICION OF RAPE","Tenn.","Andy Blount",NA,NA,NA
-"TURNING STATE'S EVIDENCE","Ga.","William Ferguson",NA,NA,NA
-"RAPE","Ala.","James Williams",NA,NA,NA
-NA,"Tenn.","unknown negro",NA,NA,NA
-NA,"Tenn.","Joseph Hayne",NA,NA,NA
-NA,"Va.","Abner Anthony",NA,NA,NA
-NA,"Ga.","Thomas Hill",NA,NA,NA
-NA,"S.C.","John Peterson",NA,NA,NA
-NA,"S.C.","Samuel Gaillard",NA,NA,NA
-NA,"S.C.","Haywood Banks",NA,NA,NA
-NA,"La.","Israel Halliway",NA,NA,NA
-NA,"Va.","unknown negro",NA,NA,NA
-NA,"Ark.","John Wallace",NA,NA,NA
-NA,"Ill.","Samuel Bush",NA,NA,NA
-NA,"Tenn.","L.C. Dumas",NA,NA,NA
-NA,"Va.","William Shorter",NA,NA,NA
-NA,"Tex.","George Williams",NA,NA,NA
-NA,"Ala.","Daniel Edwards",NA,NA,NA
-NA,"Ala.","Ernest Murphy",NA,NA,NA
-NA,"La.","unknown negro",NA,NA,NA
-NA,"La.","unknown negro",NA,NA,NA
-NA,"Tex.","Robert Larkin",NA,NA,NA
-NA,"Ga.","Warren Dean",NA,NA,NA
-NA,"Fla.","unknown negro",NA,NA,NA
-NA,"Ark.","John Cotton",NA,NA,NA
-NA,"Miss.","Lee Walker",NA,NA,NA
-NA,"S.C.","—— Handy",NA,NA,NA
-NA,"S.C.","William Thompson",NA,NA,NA
-NA,"Ala.","Isaac Harper",NA,NA,NA
-NA,"S.C.","Thomas Preston",NA,NA,NA
-NA,"S.C.","Handy Kaigler",NA,NA,NA
-NA,"Ala.","Monroe Smith",NA,NA,NA
-NA,"S.C.","negro tramp",NA,NA,NA
-NA,"Kan.","John Nilson",NA,NA,NA
-NA,"S.C.","Jacob Davis",NA,NA,NA
-NA,"Ky.","William Arkinson",NA,NA,NA
-NA,"Ala.","unknown negro",NA,NA,NA
-NA,"Va.","Jessie Mitchell",NA,NA,NA
-NA,"Tex.","Perry Bratcher",NA,NA,NA
-NA,"Ala.","William Lacey",NA,NA,NA
-NA,"Tenn.","John Gamble",NA,NA,NA
+"State","count","...3","1892","...5"
+"Alabama",22,NA,"Accusation (all negros below)","count"
+"Arkansas",25,NA,"Rape","46"
+"California",3,NA,"murder","58"
+"Florida",11,NA,"race prejudice","6"
+"Georgia",17,NA,"no cause given","4"
+"Idaho",8,NA,"incendiarism","6"
+"Illinois",1,NA,"robbery","6"
+"Kansas",3,NA,"assault and battery","1"
+"Kentucky",9,NA,"attempted rape","11"
+"Louisiana",29,NA,"suspected robbery","4"
+"Maryland",1,NA,"larceny","1"
+"Mississippi",16,NA,"self-defense","1"
+"Missouri",6,NA,"insulting women","2"
+"Montana",4,NA,"desperadoes","6"
+"New York",1,NA,"fraud","1"
+"North Carolina,",5,NA,"attempted murder","2"
+"North Dakota",1,NA,"no offense stated, boy and girl","2"
+"Ohio",3,NA,"rioting","3"
+"South Carolina",5,NA,NA,"160"
+"Tennessee",28,NA,NA,NA
+"Texas",15,NA,NA,NA
+"Virginia",7,NA,NA,NA
+"West Virginia",5,NA,NA,NA
+"Wyoming",9,NA,NA,NA
+"Arizona Territory",3,NA,NA,NA
+"Oklahoma",2,NA,NA,NA
